@@ -4,9 +4,12 @@ import { useSelector } from "react-redux"
 
 function RestaurantPlats() {
   const PostsRestaurantPlats = useSelector(state => state.PostsResaurantPlats)
-  console.log(PostsRestaurantPlats)
+  const user = JSON.parse(localStorage.getItem("profile"))
+  if (!user) {
+    return <h1>""</h1>
+  }
   return !PostsRestaurantPlats.length ? (
-    <h1>Loading</h1>
+    <h1 className="text-white">Téléchargement...</h1>
   ) : (
     <div className="flex flex-wrap justify-start space-x-2">
       {PostsRestaurantPlats.map(plat => (

@@ -1,5 +1,5 @@
 import React from "react"
-import imgtest from "../../images/icon.png"
+
 function RestaurantPlat({ plat }) {
   return (
     <div className="flex bg-white flex-col h-fit justify-center items-center rounded-md my-2">

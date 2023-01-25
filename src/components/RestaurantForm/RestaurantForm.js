@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux"
 import { createResaurantPlats } from "../../actions/PostsResaurantPlats"
 
 function RestaurantForm() {
+  const dispatch = useDispatch()
   const [postData, setPostData] = useState({
     title: "",
     description: "",
     selectedFile: "",
   })
-  const dispatch = useDispatch()
+  const user = JSON.parse(localStorage.getItem("profile"))
   const clear = () => {
     setPostData({
       title: "",
@@ -21,6 +22,13 @@ function RestaurantForm() {
     e.preventDefault()
     dispatch(createResaurantPlats(postData))
     clear()
+  }
+  if (!user?.result?.name) {
+    return (
+      <div>
+        <h1> authentifie toi pour pouvoir ajouter des plats</h1>
+      </div>
+    )
   }
   return (
     <div className="container mx-auto">
