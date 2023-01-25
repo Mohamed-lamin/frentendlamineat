@@ -1,8 +1,10 @@
 import axios from "axios"
 
 // const url = "https://lamineatbackend-lamineat.onrender.com"
-const url = "http://localhost:5000"
-const API = axios.create({ baseURL: url })
+// const url = "http://localhost:5000"
+const API = axios.create({
+  baseURL: "https://lamineatbackend-lamineat.onrender.com",
+})
 
 API.interceptors.request.use(req => {
   if (localStorage.getItem("profile")) {
