@@ -23,13 +23,7 @@ function RestaurantForm() {
     dispatch(createResaurantPlats(postData))
     clear()
   }
-  if (!user?.result?.name) {
-    return (
-      <div>
-        <h1> authentifie toi pour pouvoir ajouter des plats</h1>
-      </div>
-    )
-  }
+
   return (
     <div className="container mx-auto">
       <form className="flex flex-col h-1/2 items-center justify-around mt-20">

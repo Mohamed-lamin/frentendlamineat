@@ -13,7 +13,7 @@ function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
   const logout = () => {
     dispatch({ type: "LOGOUT" })
-    history.push("/")
+    history.push("/auth")
     setUser(null)
   }
   useEffect(() => {
@@ -34,14 +34,18 @@ function Navbar() {
       </div>
       <div>
         {user ? (
-          <div className="flex space-x-2">
-            <div div className=" border-2 border-black rounded-full w-5">
-              <h1 className="text-black font-bold">
-                {user.result.name.charAt(0)}
-              </h1>
-            </div>
+          <div className="font-bold flex items-center space-x-2">
+            <Avatar
+              round={true}
+              size="35"
+              className="bg-"
+              name={user?.result.name}
+              src="https://startling-blini-3bec23.netlify.app/troisieme_list/brett-jordan-4lqO7zRoLaM-unsplash.jpg"
+            />
+            <h1>{user?.result.name}</h1>
+
             <button
-              className="bg-black text-white font-bold shadow rounded w-16 text-center"
+              className="bg-black text-sm p-0.5 text-white font-semibold shadow rounded w-16 text-center"
               onClick={logout}
             >
               Logout
@@ -49,9 +53,9 @@ function Navbar() {
           </div>
         ) : (
           <div className="bg-black text-white font-bold rounded w-16 text-center">
-            <Link className="" to="/auth">
+            {/* <Link className="" to="/auth">
               Login
-            </Link>
+            </Link> */}
           </div>
         )}
       </div>
