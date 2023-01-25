@@ -10,14 +10,14 @@ function Auth() {
     dispatch(getRestaurantPlats())
   }, [dispatch])
   return (
-    <div className="container mx-auto">
-      <div className="container flex justify-between items-stretch space-x-5">
-        <div className="flex flex-1  ">
+    <div className="container mx-auto  ">
+      <div className="container  flex flex-col-reverse md:flex-row md:justify-between items-center md:items-stretch space-x-5 ">
+        <div className="flex md:flex-1  ">
           <div className="">
             <RestaurantPlats />
           </div>
         </div>
-        <div className="bg-white rounded">
+        <div className="bg-white rounded" style={{ margin: 0 }}>
           <RestaurantForm />
         </div>
       </div>

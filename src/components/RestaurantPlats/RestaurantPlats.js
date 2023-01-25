@@ -13,7 +13,7 @@ function RestaurantPlats() {
   ) : (
     <div className="flex flex-wrap justify-start space-x-2">
       {PostsRestaurantPlats.map((plat, index) => (
-        <div key={index} className="w-60">
+        <div key={index} className="w-50 md:w-60">
           <RestaurantPlat plat={plat} />
         </div>
       ))}

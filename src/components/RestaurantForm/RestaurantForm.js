@@ -25,18 +25,18 @@ function RestaurantForm() {
   }
 
   return (
-    <div className="container mx-auto">
-      <form className="flex flex-col h-1/2 items-center justify-around mt-20">
+    <div className="container mx-auto ">
+      <form className="flex flex-col h-1/2 items-center justify-around mt-2 md:mt-20">
         <h2 className="text-xl font-bold">Ajouter un plat</h2>
         <input
-          className="bg-gray-300 my-10 w-60 rounded py-2 px-2"
+          className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
           placeholder="Le plat à ajouter"
           name="title"
           value={postData.title}
           onChange={e => setPostData({ ...postData, title: e.target.value })}
         />
         <textarea
-          className="bg-gray-300 mb-10 w-60 rounded py-2 px-2"
+          className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"
           name="description"
           rows={5}
           placeholder="Description du plat"
@@ -56,7 +56,7 @@ function RestaurantForm() {
           />
         </div>
         <button
-          className="my-10 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
+          className="my-5 md:my-10 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
           type="submit"
           onClick={handleSumbit}
         >

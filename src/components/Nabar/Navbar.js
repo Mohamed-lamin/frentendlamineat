@@ -25,20 +25,24 @@ function Navbar() {
     setUser(JSON.parse(localStorage.getItem("profile")))
   }, [location])
   return (
-    <div className="bg-white mx-30 rounded flex flex-row justify-between items-center my-5 px-5 space-x-2">
-      <div className="flex flex-row-reverse items-center">
-        <h2 className="text-lg font-bold ml-1">
+    <div className="bg-white mx-3 md:mx-30 rounded flex flex-row justify-around md:justify-between items-center my-5 px-5 space-x-2 ">
+      <div className="flex flex-row-reverse items-center justify-center">
+        <h2 className="text-lg font-bold ml-1 invisible md:visible">
           <Link to="/">LaminEAT</Link>
         </h2>
-        <img alt="LaminEAT" className="h-10 rounded-full my-1" src={imageEAT} />
+        <img
+          alt="LaminEAT"
+          className=" h-8 md:h-10 rounded-full my-1 ml-3 md:ml-0"
+          src={imageEAT}
+        />
       </div>
       <div>
         {user ? (
-          <div className="font-bold flex items-center space-x-2">
+          <div className="font-bold flex items-center space-x-2 ">
             <Avatar
               round={true}
               size="35"
-              className="bg-"
+              className=" "
               name={user?.result.name}
               src="https://startling-blini-3bec23.netlify.app/troisieme_list/brett-jordan-4lqO7zRoLaM-unsplash.jpg"
             />
