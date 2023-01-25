@@ -43,7 +43,7 @@ function Home() {
   //   console.log(error)
   // }
   return (
-    <div className="container mx-auto flex justify-center">
+    <div className="container mx-auto flex justify-center ms:mt-30">
       <div className="mx-10 w-1/2">
         <form
           className="flex flex-col h-fit bg-white  w-full items-center  mt-20 rounded"
