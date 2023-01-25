@@ -26,7 +26,7 @@ function Navbar() {
   }, [location])
   return (
     <div className="bg-white mx-3 md:mx-30 rounded flex flex-row justify-around md:justify-between items-center my-5 px-5 space-x-2 ">
-      <div className="flex flex-row-reverse items-center justify-center">
+      <div className="flex flex-row-reverse items-center justify-center space-x-1">
         <h2 className="text-lg font-bold ml-1 invisible md:visible">
           <Link to="/">LaminEAT</Link>
         </h2>
@@ -35,6 +35,15 @@ function Navbar() {
           className=" h-8 md:h-10 rounded-full my-1 ml-3 md:ml-0"
           src={imageEAT}
         />
+      </div>
+      <div>
+        <label for="" className="font-bold text-sm">
+          Profile
+        </label>
+        <select name="" id="">
+          <option value="manager">Manager</option>
+          <option value="waiter">Waiter</option>
+        </select>
       </div>
       <div>
         {user ? (
@@ -52,7 +61,7 @@ function Navbar() {
               className="bg-black text-sm p-0.5 text-white font-semibold shadow rounded w-16 text-center"
               onClick={logout}
             >
-              Logout
+              Déconnecter
             </button>
           </div>
         ) : (
