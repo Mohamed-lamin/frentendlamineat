@@ -6,16 +6,17 @@ import { createResaurantPlats } from "../../actions/PostsResaurantPlats"
 function RestaurantForm() {
   const dispatch = useDispatch()
   const [postData, setPostData] = useState({
-    title: "",
+    dishname: "",
     description: "",
-    selectedFile: "",
+    image: "",
   })
+
   const user = JSON.parse(localStorage.getItem("profile"))
   const clear = () => {
     setPostData({
-      title: "",
+      dishname: "",
       description: "",
-      selectedFile: "",
+      image: "",
     })
   }
   const handleSumbit = e => {
@@ -31,9 +32,9 @@ function RestaurantForm() {
         <input
           className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
           placeholder="Le plat à ajouter"
-          name="title"
-          value={postData.title}
-          onChange={e => setPostData({ ...postData, title: e.target.value })}
+          name="dishname"
+          value={postData.dishname}
+          onChange={e => setPostData({ ...postData, dishname: e.target.value })}
         />
         <textarea
           className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"
@@ -49,10 +50,8 @@ function RestaurantForm() {
           <FileBase
             type="file"
             multiple={false}
-            name="title"
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
+            name="image"
+            onDone={({ base64 }) => setPostData({ ...postData, image: base64 })}
           />
         </div>
         <button

@@ -11,6 +11,7 @@ export const getRestaurantPlats = () => async dispatch => {
 export const createResaurantPlats = newPlat => async dispatch => {
   try {
     const { data } = await api.createPlat(newPlat)
+    console.log(data)
     dispatch({ type: "CREATE", payload: data })
   } catch (error) {
     console.log(error)

@@ -11,6 +11,6 @@ export const signup = (form, history) => async dispatch => {
   try {
     const { data } = await api.signUn(form)
     dispatch({ type: "AUTH", data })
-    history.push("/auth")
+    history.push("/restaurantinfo")
   } catch (error) {}
 }

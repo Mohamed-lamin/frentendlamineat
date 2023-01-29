@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import { getAllRestaurant } from "../../actions/Restaurant"
 import { getRestaurantPlats } from "../../actions/PostsResaurantPlats"
 import RestaurantForm from "../RestaurantForm/RestaurantForm"
 import RestaurantPlats from "../RestaurantPlats/RestaurantPlats"
@@ -9,6 +10,9 @@ function Auth() {
   useEffect(() => {
     dispatch(getRestaurantPlats())
   }, [dispatch])
+  useEffect(() => {
+    dispatch(getAllRestaurant())
+  })
   return (
     <div className="container mx-auto  ">
       <div className="container  flex flex-col-reverse md:flex-row md:justify-between items-center md:items-stretch space-x-5 ">

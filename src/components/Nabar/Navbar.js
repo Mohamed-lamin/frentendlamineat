@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
 import imageEAT from "../../images/icon.png"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useLocation, Link } from "react-router-dom"
 import decode from "jwt-decode"
 import Avatar from "react-avatar"
@@ -11,6 +11,9 @@ function Navbar() {
   const location = useLocation()
   const dispatch = useDispatch()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
+  const restaurantinfo = useSelector(state => state.restaurant)
+  console.log(restaurantinfo)
+  console.log(user)
   const logout = () => {
     dispatch({ type: "LOGOUT" })
     history.push("/")
@@ -53,9 +56,9 @@ function Navbar() {
               size="35"
               className=" "
               name={user?.result.name}
-              src="https://startling-blini-3bec23.netlify.app/troisieme_list/brett-jordan-4lqO7zRoLaM-unsplash.jpg"
+              src={restaurantinfo.image}
             />
-            <h1>{user?.result.name}</h1>
+            <h1>{restaurantinfo.restaurant_name}</h1>
 
             <button
               className="bg-black text-sm p-0.5 text-white font-semibold shadow rounded w-16 text-center"

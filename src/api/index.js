@@ -1,9 +1,9 @@
 import axios from "axios"
 
 // const url = "https://lamineatbackend-lamineat.onrender.com"
-// const url = "http://localhost:5000"
+const url = "http://localhost:5000"
 const API = axios.create({
-  baseURL: "https://lamineatbackend-lamineat.onrender.com",
+  baseURL: url,
 })
 
 API.interceptors.request.use(req => {
@@ -14,8 +14,14 @@ API.interceptors.request.use(req => {
   }
   return req
 })
-export const fetchPlats = () => API.get("/plats")
-export const createPlat = newPlatPost => API.post("/plats", newPlatPost)
+export const fetchPlats = () => API.get("/plats/restaurants")
+export const createPlat = newPlatPost =>
+  API.patch("plats/restaurants/", newPlatPost)
+
+//CreateRestaurant
+export const createRestaurant = restaurant =>
+  API.post(`plats/restaurants`, restaurant)
+export const AllAboutRestaurant = () => API.get(`plats/restaurants`)
 
 // Auth
 

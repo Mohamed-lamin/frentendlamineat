@@ -3,6 +3,7 @@ import Navbar from "./components/Nabar/Navbar"
 import Auth from "./components/Auth/Auth"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from "./components/Home/Home"
+import Restaurantinfo from "./components/restaurantinfo/Restaurantinfo"
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/auth" exact component={Auth} />
+            <Route path="/restaurantinfo" exact component={Restaurantinfo} />
           </Switch>
         </div>
       </div>
