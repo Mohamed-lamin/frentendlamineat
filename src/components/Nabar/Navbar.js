@@ -56,9 +56,9 @@ function Navbar() {
               size="35"
               className=" "
               name={user?.result.name}
-              src={restaurantinfo.image}
+              src={restaurantinfo?.image}
             />
-            <h1>{restaurantinfo.restaurant_name}</h1>
+            <h1>{restaurantinfo?.restaurant_name}</h1>
 
             <button
               className="bg-black text-sm p-0.5 text-white font-semibold shadow rounded w-16 text-center"

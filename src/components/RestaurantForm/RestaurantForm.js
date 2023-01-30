@@ -7,6 +7,7 @@ function RestaurantForm() {
   const dispatch = useDispatch()
   const [postData, setPostData] = useState({
     dishname: "",
+    price:"",
     description: "",
     image: "",
   })
@@ -15,6 +16,7 @@ function RestaurantForm() {
   const clear = () => {
     setPostData({
       dishname: "",
+      price:"",
       description: "",
       image: "",
     })
@@ -35,6 +37,13 @@ function RestaurantForm() {
           name="dishname"
           value={postData.dishname}
           onChange={e => setPostData({ ...postData, dishname: e.target.value })}
+        />
+        <input
+          className="bg-gray-300 my-2 md:mb-10 w-60 rounded py-2 px-2"
+          placeholder="Prix"
+          name="price"
+          value={postData.price}
+          onChange={e => setPostData({ ...postData, price: e.target.value })}
         />
         <textarea
           className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"

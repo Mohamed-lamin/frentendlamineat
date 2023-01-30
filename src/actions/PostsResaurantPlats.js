@@ -4,7 +4,9 @@ export const getRestaurantPlats = () => async dispatch => {
   try {
     const { data } = await api.fetchPlats()
     dispatch({ type: "FETCHALL", payload: data })
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
   // const action={type:'FETCHALL', payload:[]}
 }
 

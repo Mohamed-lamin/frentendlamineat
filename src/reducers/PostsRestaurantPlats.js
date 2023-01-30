@@ -2,7 +2,7 @@
 export default (PostsResaurantPlats = [], action) => {
   switch (action.type) {
     case "FETCHALL":
-      return action.payload
+      return action.payload.dishes
 
     case "CREATE":
       return [...PostsResaurantPlats, action.payload]

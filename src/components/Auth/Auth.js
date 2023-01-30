@@ -12,7 +12,8 @@ function Auth() {
   }, [dispatch])
   useEffect(() => {
     dispatch(getAllRestaurant())
-  })
+    dispatch(getRestaurantPlats())
+  },[])
   return (
     <div className="container mx-auto  ">
       <div className="container  flex flex-col-reverse md:flex-row md:justify-between items-center md:items-stretch space-x-5 ">
