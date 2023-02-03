@@ -20,7 +20,14 @@ function RestaurantPlats({
   ) : (
     <div className="flex flex-wrap justify-start space-x-2">
       {Plats.map((plat, index) => (
-        <div key={plat._id} className="w-50 md:w-60">
+        <div
+          key={plat._id}
+          className={`w-50 md:w-60 rounded ${
+            platCurrentId
+              ? " border-orange-400 border-solid border-4 "
+              : " border-transparent"
+          }`}
+        >
           <RestaurantPlat
             plat={plat}
             setCurrentId={setCurrentId}

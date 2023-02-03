@@ -16,7 +16,7 @@ function Plats() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
   const [restaurantId, setResaurantId] = useState()
   const [currentId, setCurrentId] = useState({ PlatId: "" })
-  const [platCurrentId, setPlatCurrentId] = useState(0)
+  const [platCurrentId, setPlatCurrentId] = useState("")
   console.log(restaurantId)
 
   const dispatch = useDispatch()
