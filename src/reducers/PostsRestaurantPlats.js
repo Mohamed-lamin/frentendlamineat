@@ -1,13 +1,20 @@
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (PostsResaurantPlats = [], action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case "FETCHALL":
       return action.payload
 
     case "CREATE":
-      return [...PostsResaurantPlats, action.payload]
+      return [...state, action.payload]
+    case "UPDATE":
+      console.log(state)
+      return state.map(plat =>
+        plat._id === action.payload._id ? action.payload : plat
+      )
+    case "DELETE":
+      return state.filter(plat => plat.id !== action.payload._id)
 
     default:
-      return PostsResaurantPlats
+      return state
   }
 }

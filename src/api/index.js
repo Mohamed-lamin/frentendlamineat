@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const url = "https://lamineatbackend-lamineat.onrender.com"
-// const url = "http://localhost:5000"
+// const url = "https://lamineatbackend-lamineat.onrender.com"
+const url = "http://localhost:5000"
 const API = axios.create({
   baseURL: url,
 })
@@ -14,16 +14,28 @@ API.interceptors.request.use(req => {
   }
   return req
 })
-export const fetchPlats = () => API.get("/plats/restaurants")
-export const createPlat = newPlatPost =>
-  API.patch("plats/restaurants/", newPlatPost)
+// Plats
+export const fetchPlats = restaurantId =>
+  API.get(`/restaurant/plats/${restaurantId}`)
+export const createPlat = (newPlatPost, restaurantId) =>
+  API.post(`/restaurant/plats/${restaurantId}`, newPlatPost)
+export const deletePlat = (restaurantId, currentId) =>
+  API.post(`/restaurant/deleteplat/${restaurantId}`, currentId)
+export const updatePlat = (restaurantId, form) =>
+  API.patch(`/restaurant/updateplat/${restaurantId}`, form)
 
 //CreateRestaurant
-export const createRestaurant = restaurant =>
-  API.post(`plats/restaurants`, restaurant)
+export const createRestaurant = (restaurant, userId) =>
+  API.post(`/restaurant/${userId}`, restaurant)
+
 export const AllAboutRestaurant = () => API.get(`plats/restaurants`)
 
 // Auth
 
-export const signIn = form => API.post(`/user/signin`, form)
-export const signUn = form => API.post(`/user/signup`, form)
+export const signIn = form => API.post(`/signin`, form)
+export const signUn = form => API.post(`/signup`, form)
+
+// Update CatList
+
+export const UpdateCatList = (restaurantId, cat) =>
+  API.post(`/type/${restaurantId}`, cat)

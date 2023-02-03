@@ -1,7 +1,7 @@
 import { combineReducers } from "redux"
 
-import PostsResaurantPlats from "./PostsRestaurantPlats"
+import plats from "./PostsRestaurantPlats"
 import auth from "./auth"
-import restaurant from "./restaurantinfo"
+import restaurant from "./restaurant"
 
-export default combineReducers({ PostsResaurantPlats, auth, restaurant })
+export default combineReducers({ plats, auth, restaurant })

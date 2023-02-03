@@ -1,40 +1,71 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import FileBase from "react-file-base64"
-import { useDispatch } from "react-redux"
-import { createResaurantPlats } from "../../actions/PostsResaurantPlats"
+import { useDispatch, useSelector } from "react-redux"
+import {
+  createResaurantPlats,
+  getRestaurantPlats,
+  updatePlat,
+} from "../../actions/PostsResaurantPlats"
 
-function RestaurantForm() {
+function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
+  console.log(platCurrentId)
+  const plat = useSelector(state =>
+    platCurrentId ? state.plats?.find(plat => plat._id === platCurrentId) : null
+  )
   const dispatch = useDispatch()
   const [postData, setPostData] = useState({
     dishname: "",
+    price: "",
     description: "",
     image: "",
   })
 
   const user = JSON.parse(localStorage.getItem("profile"))
   const clear = () => {
+    setPlatCurrentId(0)
     setPostData({
       dishname: "",
+      price: "",
       description: "",
       image: "",
     })
   }
+  useEffect(() => {
+    if (plat) {
+      setPostData(plat)
+    }
+  }, [plat])
   const handleSumbit = e => {
     e.preventDefault()
-    dispatch(createResaurantPlats(postData))
-    clear()
+    if (platCurrentId === 0) {
+      dispatch(createResaurantPlats(postData, restaurantId))
+      clear()
+    } else {
+      dispatch(updatePlat(restaurantId, postData))
+      clear()
+    }
   }
-
+  useEffect(() => {
+    dispatch(getRestaurantPlats(restaurantId))
+  }, [dispatch])
   return (
     <div className="container mx-auto ">
       <form className="flex flex-col h-1/2 items-center justify-around mt-2 md:mt-20">
         <h2 className="text-xl font-bold">Ajouter un plat</h2>
         <input
-          className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
+          className="bg-gray-300 my-2 md:mt-10 w-60 rounded py-2 px-2"
           placeholder="Le plat à ajouter"
           name="dishname"
           value={postData.dishname}
           onChange={e => setPostData({ ...postData, dishname: e.target.value })}
+        />
+        <input
+          className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
+          placeholder="Le prix"
+          name="price"
+          type="number"
+          value={postData.price}
+          onChange={e => setPostData({ ...postData, price: e.target.value })}
         />
         <textarea
           className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"

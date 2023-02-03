@@ -4,13 +4,17 @@ export const signin = (form, history) => async dispatch => {
   try {
     const { data } = await api.signIn(form)
     dispatch({ type: "AUTH", data })
-    history.push("/auth")
-  } catch (error) {}
+    history.push("/plats")
+  } catch (error) {
+    console.log(error)
+  }
 }
 export const signup = (form, history) => async dispatch => {
   try {
     const { data } = await api.signUn(form)
     dispatch({ type: "AUTH", data })
     history.push("/restaurantinfo")
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
