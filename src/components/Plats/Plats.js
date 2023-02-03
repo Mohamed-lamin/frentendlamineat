@@ -23,7 +23,7 @@ function Plats() {
 
   useEffect(() => {
     dispatch(getRestaurantPlats(restaurantId))
-  }, [dispatch, restaurantId, currentId, platCurrentId])
+  }, [dispatch, restaurantId, currentId])
   // useEffect(() => {
   //   dispatch(deletePlat(restaurantId, currentId))
   //   console.log(currentId)
