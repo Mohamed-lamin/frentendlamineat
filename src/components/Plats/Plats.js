@@ -10,9 +10,7 @@ import RestaurantPlats from "../RestaurantPlats/RestaurantPlats"
 import { useHistory, useLocation } from "react-router-dom"
 
 function Plats() {
-  const restaurantID = useSelector(
-    state => state.restaurant?.restaurantUser._id
-  )
+  const restaurantID = useSelector(state => state.restaurant)
   const history = useHistory()
   const location = useLocation()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
@@ -32,7 +30,7 @@ function Plats() {
   // }, [currentId, dispatch, restaurantId])
   useEffect(() => {
     restaurantID
-      ? setResaurantId(restaurantID)
+      ? setResaurantId(restaurantID?.restaurantUser._id)
       : setResaurantId(user?.result?.restaurantUser?._id)
   }, [restaurantId, user])
   useEffect(() => {
