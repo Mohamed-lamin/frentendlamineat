@@ -13,11 +13,6 @@ function RestaurantPlat({
   //   JSON.parse(localStorage.getItem("profile")).result?.restaurantUser?._id
   // )
 
-<<<<<<< HEAD
-=======
-function RestaurantPlat({ plat }) {
-  console.log(plat);
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
   return (
     <div className="flex bg-white flex-col h-fit justify-center items-center rounded-md my-2">
       <EllipsisHorizontalIcon
@@ -29,12 +24,8 @@ function RestaurantPlat({ plat }) {
         alt="a"
         src={plat.image}
       />
-<<<<<<< HEAD
 
       <div className="flex justify-start w-full flex-col ml-5 ">
-=======
-      <div className="flex justify-start w-full flex-col ml-5">
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
         <h1 className="text-xl font-bold">{plat.dishname}</h1>
         <p>{plat.description}</p>
       </div>
