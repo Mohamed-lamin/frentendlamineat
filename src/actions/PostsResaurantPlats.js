@@ -2,21 +2,7 @@ import * as api from "../api"
 
 export const getRestaurantPlats = restaurantId => async dispatch => {
   try {
-<<<<<<< HEAD
     const { data } = await api.fetchPlats(restaurantId)
-=======
-    const { data } = await api.fetchPlats()
-    dispatch({ type: "FETCHALL", payload: data })
-  } catch (error) {
-    console.log(error);
-  }
-  // const action={type:'FETCHALL', payload:[]}
-}
-
-export const createResaurantPlats = newPlat => async dispatch => {
-  try {
-    const { data } = await api.createPlat(newPlat)
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
     console.log(data)
     dispatch({ type: "FETCHALL", payload: data })
   } catch (error) {

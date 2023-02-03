@@ -43,7 +43,6 @@ function Auth() {
   //   console.log(error)
   // }
   useEffect(() => {
-<<<<<<< HEAD
     let isAuth = JSON.parse(localStorage.getItem("profile"))
     console.log(isAuth)
     if (isAuth && !isAuth?.result?.restaurantUser) {
@@ -54,14 +53,6 @@ function Auth() {
       history.push("/")
     }
   }, [])
-=======
-    dispatch(getRestaurantPlats())
-  }, [dispatch])
-  useEffect(() => {
-    dispatch(getAllRestaurant())
-    dispatch(getRestaurantPlats())
-  },[])
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
   return (
     <div className="container mx-auto flex flex-col md:flex-row justify-center items-center">
       <div className="mx-10  md:w-1/2">

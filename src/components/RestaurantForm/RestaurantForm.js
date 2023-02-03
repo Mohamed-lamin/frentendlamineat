@@ -15,11 +15,7 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
   const dispatch = useDispatch()
   const [postData, setPostData] = useState({
     dishname: "",
-<<<<<<< HEAD
     price: "",
-=======
-    price:"",
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
     description: "",
     image: "",
   })
@@ -29,11 +25,7 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
     setPlatCurrentId(0)
     setPostData({
       dishname: "",
-<<<<<<< HEAD
       price: "",
-=======
-      price:"",
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
       description: "",
       image: "",
     })
@@ -68,16 +60,10 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
           onChange={e => setPostData({ ...postData, dishname: e.target.value })}
         />
         <input
-<<<<<<< HEAD
           className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
           placeholder="Le prix"
           name="price"
           type="number"
-=======
-          className="bg-gray-300 my-2 md:mb-10 w-60 rounded py-2 px-2"
-          placeholder="Prix"
-          name="price"
->>>>>>> fa3a83a95a1342c4bf8817f37a0273f12202a87f
           value={postData.price}
           onChange={e => setPostData({ ...postData, price: e.target.value })}
         />
