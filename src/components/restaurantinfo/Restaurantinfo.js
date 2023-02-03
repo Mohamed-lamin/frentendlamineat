@@ -11,7 +11,10 @@ function Restaurantinfo() {
     image: "",
     lat: "52",
     long: "52",
-    address: "",
+    numero: "",
+    rue: "",
+    ville: "",
+    codepostal: "",
     rating: "5",
     category_name: "Test",
   }
@@ -31,21 +34,25 @@ function Restaurantinfo() {
   }
   console.log(restaurant)
   return (
-    <div className="container mx-auto flex justify-center">
-      <form className="flex w-1/2 flex-col h-1/2 items-center justify-around mt-2 md:mt-20 border-2  border-white">
-        <h2 className="text-xl text-white font-bold">
+    <div className="container mx-auto flex justify-center items-start ">
+      <form className="flex w-1/2 flex-col h-1/2 items-center justify-around mt-2 bg-white rounded border-2  border-white">
+        <h2 className="text-xl mt-5 font-bold">
           Entrer les informations de votre restaurant
         </h2>
-        <input
-          className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
-          placeholder="Nom du restaurant"
-          name="restaurant_name"
-          value={restaurant.restaurant_name}
-          onChange={e =>
-            setRestaurant({ ...restaurant, restaurant_name: e.target.value })
-          }
-        />
-        <textarea
+        <div className="flex flex-col mt-5">
+          <label>Nom du restaurant</label>
+          <input
+            className="bg-gray-300 my-1 md:mb-3 w-60 rounded py-2 px-2"
+            placeholder="Nom du restaurant"
+            name="restaurant_name"
+            value={restaurant.restaurant_name}
+            onChange={e =>
+              setRestaurant({ ...restaurant, restaurant_name: e.target.value })
+            }
+          />
+        </div>
+
+        {/* <textarea
           className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"
           name="address"
           rows={3}
@@ -54,23 +61,90 @@ function Restaurantinfo() {
           onChange={e =>
             setRestaurant({ ...restaurant, address: e.target.value })
           }
-        />
-        <textarea
-          className="bg-gray-300 mb-5 md:mb-5 w-60 rounded py-2 px-2"
-          name="description"
-          rows={3}
-          placeholder="Description"
-          value={restaurant.description}
-          onChange={e =>
-            setRestaurant({ ...restaurant, description: e.target.value })
-          }
-        />
+        /> */}
+        <div className="flex flex-col">
+          <div className="w-fit flex space-x-1">
+            <div className="flex flex-col">
+              <label>N°</label>
+              <input
+                className="bg-gray-300 my-1 md:mb-3 w-10 rounded py-2 px-2"
+                name="numero"
+                placeholder="N°"
+                type="number"
+                onChange={e =>
+                  setRestaurant({
+                    ...restaurant,
+                    numero: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="flex flex-col">
+              <label>Rue</label>
+              <input
+                className="bg-gray-300 my-1 md:mb-3 w-50 rounded py-2 px-2"
+                name="rue"
+                placeholder="Rue"
+                onChange={e =>
+                  setRestaurant({
+                    ...restaurant,
+                    rue: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
 
-        <label for="categorie" className="font-bold text-sm text-white">
+          <div className="w-fit flex space-x-1">
+            <div className="flex flex-col">
+              <label>Ville</label>
+              <input
+                className="bg-gray-300 my-1 md:mb-3 w-20 rounded py-2 px-2"
+                name="ville"
+                placeholder="Ville"
+                onChange={e =>
+                  setRestaurant({
+                    ...restaurant,
+                    ville: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="flex flex-col">
+              <label>Code Postal</label>
+              <input
+                className="bg-gray-300 my-1 md:mb-3 w-40 rounded py-2 px-2"
+                name="codepostal"
+                Placeholder="Code Postal"
+                onChange={e =>
+                  setRestaurant({
+                    ...restaurant,
+                    codepostal: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <label>Description</label>
+          <textarea
+            className="bg-gray-300 mb-5 md:mb-3 mt-2 w-60 rounded py-2 px-2"
+            name="description"
+            rows={3}
+            placeholder="Description"
+            value={restaurant.description}
+            onChange={e =>
+              setRestaurant({ ...restaurant, description: e.target.value })
+            }
+          />
+        </div>
+
+        <label for="categorie" className="font-bold text-sm text-black">
           Selectionnez une categorie
         </label>
         <select
-          className="mb-10 w-1/5 rounded"
+          className="mb-5 w-1/5 rounded bg-gray-200"
           name="category_name"
           id="categorie"
           onChange={e =>
@@ -86,7 +160,7 @@ function Restaurantinfo() {
           <option value="chinois">Chinois</option>
         </select>
 
-        <div className="text-white">
+        <div className="text-black">
           <FileBase
             type="file"
             multiple={false}
@@ -97,11 +171,11 @@ function Restaurantinfo() {
           />
         </div>
         <button
-          className="my-5 md:my-10 py-1 border-solid border-2 bg-black w-1/5  text-white font-bold rounded-md "
+          className="my-2 md:my-5 py-1 border-solid border-2 bg-black w-1/5  text-white font-bold rounded-md "
           type="submit"
           onClick={handleSumbit}
         >
-          Enregister
+          Enregistrer
         </button>
       </form>
     </div>

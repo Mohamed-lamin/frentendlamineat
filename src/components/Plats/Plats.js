@@ -52,10 +52,18 @@ function Plats() {
               setCurrentId={setCurrentId}
               setPlatCurrentId={setPlatCurrentId}
               restaurantId={restaurantId}
+              platCurrentId={platCurrentId}
             />
           </div>
         </div>
-        <div className="bg-white rounded" style={{ margin: 0 }}>
+        <div
+          className={`bg-white rounded ${
+            platCurrentId
+              ? "border-spacing-2 border-orange-600 bg-orange-500"
+              : ""
+          }`}
+          style={{ margin: 0 }}
+        >
           <RestaurantForm
             restaurantId={restaurantId}
             setPlatCurrentId={setPlatCurrentId}

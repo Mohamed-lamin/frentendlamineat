@@ -19,6 +19,15 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
     description: "",
     image: "",
   })
+  const resetUpdate = () => {
+    setPlatCurrentId("")
+    setPostData({
+      dishname: "",
+      price: "",
+      description: "",
+      image: "",
+    })
+  }
 
   const user = JSON.parse(localStorage.getItem("profile"))
   const clear = () => {
@@ -50,33 +59,48 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
   }, [dispatch])
   return (
     <div className="container mx-auto ">
-      <form className="flex flex-col h-1/2 items-center justify-around mt-2 md:mt-20">
-        <h2 className="text-xl font-bold">Ajouter un plat</h2>
-        <input
-          className="bg-gray-300 my-2 md:mt-10 w-60 rounded py-2 px-2"
-          placeholder="Le plat à ajouter"
-          name="dishname"
-          value={postData.dishname}
-          onChange={e => setPostData({ ...postData, dishname: e.target.value })}
-        />
-        <input
-          className="bg-gray-300 my-2 md:my-10 w-60 rounded py-2 px-2"
-          placeholder="Le prix"
-          name="price"
-          type="number"
-          value={postData.price}
-          onChange={e => setPostData({ ...postData, price: e.target.value })}
-        />
-        <textarea
-          className="bg-gray-300 mb-5 md:mb-10 w-60 rounded py-2 px-2"
-          name="description"
-          rows={5}
-          placeholder="Description du plat"
-          value={postData.description}
-          onChange={e =>
-            setPostData({ ...postData, description: e.target.value })
-          }
-        />
+      <form className="flex flex-col h-1/2 items-center  mt-2 md:mt-10">
+        <h2 className="text-xl font-bold">{`${
+          platCurrentId ? "Mettre à jour" : "Ajouter un plat"
+        }`}</h2>
+        <div className="flex flex-col mt-10">
+          <label>Nom du plat</label>
+          <input
+            className="bg-gray-300 my-2 md: w-60 rounded py-2 px-2"
+            placeholder="Nom du plat"
+            name="dishname"
+            value={postData.dishname}
+            onChange={e =>
+              setPostData({ ...postData, dishname: e.target.value })
+            }
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label>Prix</label>
+          <input
+            className="bg-gray-300 my-2 md:mb-2 w-60 rounded py-2 px-2"
+            placeholder="Le prix"
+            name="price"
+            type="number"
+            value={postData.price}
+            onChange={e => setPostData({ ...postData, price: e.target.value })}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label>Description</label>
+          <textarea
+            className="bg-gray-300 mb-5 md:mb-3 w-60 rounded py-2 px-2"
+            name="description"
+            rows={5}
+            placeholder="Description du plat"
+            value={postData.description}
+            onChange={e =>
+              setPostData({ ...postData, description: e.target.value })
+            }
+          />
+        </div>
+
         <div className="">
           <FileBase
             type="file"
@@ -86,12 +110,20 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
           />
         </div>
         <button
-          className="my-5 md:my-10 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
+          className="mt-5 mb-2 md:mt-10 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
           type="submit"
           onClick={handleSumbit}
         >
-          Enregister
+          {`${platCurrentId ? "Mettre à jour" : "Enregistrer"}`}
         </button>
+        {platCurrentId && (
+          <button
+            className=" my-1 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
+            onClick={resetUpdate}
+          >
+            Annuler
+          </button>
+        )}
       </form>
     </div>
   )

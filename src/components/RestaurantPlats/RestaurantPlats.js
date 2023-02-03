@@ -2,7 +2,12 @@ import React from "react"
 import RestaurantPlat from "./RestaurantPlat"
 import { useSelector } from "react-redux"
 
-function RestaurantPlats({ setCurrentId, setPlatCurrentId, restaurantId }) {
+function RestaurantPlats({
+  setCurrentId,
+  platCurrentId,
+  setPlatCurrentId,
+  restaurantId,
+}) {
   const Plats = useSelector(state => state.plats)
   console.log(restaurantId)
 
@@ -20,6 +25,7 @@ function RestaurantPlats({ setCurrentId, setPlatCurrentId, restaurantId }) {
             plat={plat}
             setCurrentId={setCurrentId}
             setPlatCurrentId={setPlatCurrentId}
+            platCurrentId={platCurrentId}
             restaurantId={restaurantId}
           />
         </div>

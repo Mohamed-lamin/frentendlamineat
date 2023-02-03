@@ -9,15 +9,16 @@ function RestaurantPlat({
   restaurantId,
 }) {
   const Dispatch = useDispatch()
+
   // const [restaurantID, setResaurantID] = useState(
   //   JSON.parse(localStorage.getItem("profile")).result?.restaurantUser?._id
   // )
 
   return (
-    <div className="flex bg-white flex-col h-fit justify-center items-center rounded-md my-2">
+    <div className="flex bg-white flex-col h-fit justify-center  items-center rounded-md my-2">
       <EllipsisHorizontalIcon
         onClick={() => setPlatCurrentId(plat._id)}
-        className="h-8 absolute z-50 w-10 flex mb-52 ml-40 cursor-pointer "
+        className={`h-8 absolute z-50 w-10 flex mb-52 ml-40 cursor-pointer`}
       />
       <img
         className="h-20  md:h-40 w-full rounded-md relative"
