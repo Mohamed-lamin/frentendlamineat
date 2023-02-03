@@ -117,14 +117,15 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
         >
           {`${platCurrentId ? "Mettre à jour" : "Enregistrer"}`}
         </button>
-        {platCurrentId && (
-          <button
-            className=" my-1 py-1 border-solid border-2 bg-black w-5/12  text-white font-bold rounded-md "
-            onClick={resetUpdate}
-          >
-            Annuler
-          </button>
-        )}
+
+        <button
+          className={`my-1 py-1 border-solid border-2 bg-black w-5/12 ${
+            platCurrentId ? "block" : "hidden"
+          } text-white font-bold rounded-md`}
+          onClick={resetUpdate}
+        >
+          Annuler
+        </button>
       </form>
     </div>
   )
