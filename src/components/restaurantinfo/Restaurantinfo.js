@@ -16,7 +16,7 @@ function Restaurantinfo() {
     ville: "",
     codepostal: "",
     rating: "5",
-    category_name: "Test",
+    category_name: "",
   }
   const dispatch = useDispatch()
   const history = useHistory()
@@ -26,13 +26,23 @@ function Restaurantinfo() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"))
     setId(user.result._id)
-    console.log(id)
+    if (user.result.restaurantUser) {
+      setRestaurant({
+        restaurant_name: user.result.restaurantUser.restaurant_name,
+        description: user.result.restaurantUser.description,
+        image: user.result.restaurantUser.image,
+        numero: user.result.restaurantUser.numero,
+        ville: user.result.restaurantUser.ville,
+        codepostal: user.result.restaurantUser.codepostal,
+        category_name: user.result.restaurantUser.category,
+      })
+    }
   }, [])
   const handleSumbit = e => {
     e.preventDefault()
     dispatch(createRestaurant(restaurant, id, history))
   }
-  console.log(restaurant)
+
   return (
     <div className="container mx-auto flex justify-center items-start ">
       <form className="flex w-1/2 flex-col h-1/2 items-center justify-around mt-2 bg-white rounded border-2  border-white">

@@ -39,6 +39,7 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
       image: "",
     })
   }
+  console.log(postData)
   useEffect(() => {
     if (plat) {
       setPostData(plat)
@@ -46,7 +47,7 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
   }, [plat])
   const handleSumbit = e => {
     e.preventDefault()
-    if (platCurrentId === 0) {
+    if (platCurrentId === "") {
       dispatch(createResaurantPlats(postData, restaurantId))
       clear()
     } else {
