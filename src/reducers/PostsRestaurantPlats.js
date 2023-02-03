@@ -12,7 +12,7 @@ export default (state = [], action) => {
         plat._id === action.payload._id ? action.payload : plat
       )
     case "DELETE":
-      return state.filter(plat => plat.id !== action.payload._id)
+      return state.filter(plat => plat._id !== action.payload._id)
 
     default:
       return state

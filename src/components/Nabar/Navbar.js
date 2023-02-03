@@ -31,10 +31,7 @@ function Navbar() {
     setUser(null)
     setSettings(false)
   }
-  const modifierRestaurant = () => {
-    history.push("/restaurantinfo")
-    setSettings(false)
-  }
+
   useEffect(() => {
     const token = user?.token
     if (token) {
@@ -140,12 +137,12 @@ function Navbar() {
             >
               Deconnecter
             </button>
-            <button
+            {/* <button
               className="font-bold hover:text-orange-500 hover:underline"
               onClick={modifierRestaurant}
             >
               Modifier votre profile
-            </button>
+            </button> */}
             <button
               className="font-bold hover:text-orange-500 hover:underline"
               onClick={logout}

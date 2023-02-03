@@ -26,17 +26,17 @@ function Restaurantinfo() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"))
     setId(user.result._id)
-    if (user.result.restaurantUser) {
-      setRestaurant({
-        restaurant_name: user.result.restaurantUser.restaurant_name,
-        description: user.result.restaurantUser.description,
-        image: user.result.restaurantUser.image,
-        numero: user.result.restaurantUser.numero,
-        ville: user.result.restaurantUser.ville,
-        codepostal: user.result.restaurantUser.codepostal,
-        category_name: user.result.restaurantUser.category,
-      })
-    }
+    // if (user.result.restaurantUser) {
+    //   setRestaurant({
+    //     restaurant_name: user.result.restaurantUser.restaurant_name,
+    //     description: user.result.restaurantUser.description,
+    //     image: user.result.restaurantUser.image,
+    //     numero: user.result.restaurantUser.numero,
+    //     ville: user.result.restaurantUser.ville,
+    //     codepostal: user.result.restaurantUser.codepostal,
+    //     category_name: user.result.restaurantUser.category,
+    //   })
+    // }
   }, [])
   const handleSumbit = e => {
     e.preventDefault()
