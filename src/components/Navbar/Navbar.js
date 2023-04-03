@@ -6,7 +6,8 @@ import { useHistory, useLocation, Link } from "react-router-dom"
 import decode from "jwt-decode"
 import Avatar from "react-avatar"
 import { UpdateCatList } from "../../actions/Restaurant"
-import restaurant from "../../reducers/restaurant"
+import { logout } from "../../features/authSlice"
+import { AdjustmentsVerticalIcon } from "@heroicons/react/24/solid"
 
 function Navbar() {
   const history = useHistory()
@@ -17,21 +18,25 @@ function Navbar() {
   const [partenaire, setPartenaire] = useState(false)
   const [reduction, setReduction] = useState(false)
   const [offre, setOffre] = useState(false)
-  const restaurantinfo = useSelector(state => state.restaurant)
-  console.log(restaurantinfo)
-  const restaurantId = user?.result.restaurantUser?._id
+  const [status, setStatus] = useState()
+  const restaurantId = user?.result?.userRestaurant?._id
   const [restaurantBar, setRestaurantBar] = useState(
-    JSON.parse(localStorage.getItem("profile"))?.result.restaurantUser
+    JSON.parse(localStorage.getItem("restaurant"))
   )
-
-  const logout = () => {
-    dispatch({ type: "LOGOUT" })
-    dispatch({ type: "LEAVE" })
+  const [userBar, setUserBar] = useState(
+    JSON.parse(localStorage.getItem("restaurant"))
+  )
+  const commandesNumber = useSelector(state => state.AllCommandes.commandes)
+  const deconnect = () => {
+    dispatch(logout())
+    // dispatch({ type: "LEAVE" })
     history.push("/")
     setUser(null)
     setSettings(false)
   }
-
+  useEffect(() => {
+    status === "manager" ? history.push("/plats") : history.push("/commandes")
+  }, [status])
   useEffect(() => {
     const token = user?.token
     if (token) {
@@ -39,9 +44,8 @@ function Navbar() {
       if (decodeToken.exp * 1000 < new Date().getTime()) logout()
     }
     setUser(JSON.parse(localStorage.getItem("profile")))
-    setRestaurantBar(
-      JSON.parse(localStorage.getItem("profile"))?.result.restaurantUser
-    )
+    setRestaurantBar(JSON.parse(localStorage.getItem("restaurant")))
+    setUserBar(JSON.parse(localStorage.getItem("profile")))
   }, [location])
   const addToPartenaire = () => {
     dispatch(UpdateCatList(restaurantId, { listName: "Séléction" }))
@@ -55,12 +59,11 @@ function Navbar() {
     dispatch(UpdateCatList(restaurantId, { listName: "Offres à coté" }))
     setOffre(false)
   }
+
   return (
     <>
       <div
-        className={`bg-white mx-3 md:mx-30 rounded flex flex-row justify-around md:justify-between items-center mt-5 ${
-          settings ? "mb-0" : "mb-5"
-        } px-5 space-x-2 relative`}
+        className={`bg-white  rounded flex flex-row justify-around md:justify-between items-center my-5  px-5 space-x-2 relative`}
       >
         <div className="flex flex-row-reverse items-center justify-center space-x-1">
           <h2 className="text-lg font-bold ml-1 invisible md:visible">
@@ -72,47 +75,48 @@ function Navbar() {
             src={imageEAT}
           />
         </div>
-
+        {restaurantBar && (
+          <div className="flex items-center flex-col cursor-pointer">
+            <h1 className="font-extrabold relative ">Commandes</h1>
+            <div className="w-8 h-8 ml-32 mb-0.5 absolute   bg-orange-500 rounded-full text-center flex items-center justify-center">
+              <span className="font-extrabold">{commandesNumber.length}</span>
+            </div>
+            <select className="" onChange={e => setStatus(e.target.value)}>
+              <option value="manager">Manager</option>
+              <option value="serveur">Serveur</option>
+            </select>
+          </div>
+        )}
         <div>
-          {(restaurantBar || restaurantinfo) && (
+          {(restaurantBar || userBar) && (
             <div className="font-bold flex items-center space-x-2 ">
               <Avatar
                 round={true}
                 size="35"
                 className=" "
                 name={
-                  restaurantBar
-                    ? restaurantBar.restaurant_name
-                    : restaurantinfo?.restaurantUser.restaurant_name
+                  !restaurantBar
+                    ? userBar.result?.name
+                    : restaurantBar?.userRestaurant?.restaurant_name
                 }
-                src={
-                  restaurantBar
-                    ? restaurantBar.image
-                    : restaurantinfo.restaurantUser.image
-                }
+                src={restaurantBar?.result?.userRestaurant?.image}
               />
               <h1>
-                {restaurantBar
-                  ? restaurantBar.restaurant_name
-                  : restaurantinfo.restaurantUser.restaurant_name}
+                {!restaurantBar
+                  ? userBar.result?.name
+                  : restaurantBar?.result?.userRestaurant?.restaurant_name}
               </h1>
-
-              <button
-                className={`bg-black text-sm p-0.5
-     
-     
-  text-white font-semibold shadow rounded w-18 text-center`}
+              <AdjustmentsVerticalIcon
                 onClick={() => setSettings(!settings)}
-              >
-                paramétres
-              </button>
+                className="w-10 cursor-pointer"
+              />
             </div>
           )}
         </div>
       </div>
       {settings && (
-        <div className="flex justify-end ">
-          <div className="bg-white w-1/6 flex flex-col items-end mb-4 mr-2 pr-1">
+        <div className="flex justify-end mx-30 absolute z-50 w-11/12 ml-19">
+          <div className="bg-black rounded-b text-white w-1/6 flex flex-col items-center mb-4">
             <button
               onClick={() => setPartenaire(!partenaire)}
               className="font-bold hover:text-orange-500 hover:underline"
@@ -131,21 +135,18 @@ function Navbar() {
             >
               Offres à faire
             </button>
+
             <button
               className="font-bold hover:text-orange-500 hover:underline"
-              onClick={logout}
-            >
-              Deconnecter
-            </button>
-            {/* <button
-              className="font-bold hover:text-orange-500 hover:underline"
-              onClick={modifierRestaurant}
+              onClick={() =>
+                history.push("/restaurantinfo") & setSettings(false)
+              }
             >
               Modifier votre profile
-            </button> */}
+            </button>
             <button
               className="font-bold hover:text-orange-500 hover:underline"
-              onClick={logout}
+              onClick={deconnect}
             >
               Deconnecter
             </button>

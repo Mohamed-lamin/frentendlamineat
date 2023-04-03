@@ -1,9 +1,23 @@
 import * as api from "../api"
-export const createRestaurant = (restaurant, id, history) => async dispatch => {
+import { theRestaurant } from "../features/authSlice"
+import { useHistory } from "react-router-dom"
+
+export const createRestaurant = async (dispatch, restaurant, id, history) => {
   try {
     const { data } = await api.createRestaurant(restaurant, id)
+
     console.log(data)
-    dispatch({ type: "AUTHRESTAURANT", payload: data })
+    dispatch(theRestaurant(data))
+    history.push("/plats")
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+export const updateRestaurant = async (dispatch, restaurant, id, history) => {
+  try {
+    const { data } = await api.updateRestaurant(restaurant, id)
+    console.log(data)
+    dispatch(theRestaurant(data))
     history.push("/plats")
   } catch (error) {
     console.log(error)

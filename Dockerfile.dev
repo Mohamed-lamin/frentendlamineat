@@ -1,0 +1,8 @@
+FROM node:latest
+WORKDIR /client
+COPY package*.json .
+RUN npm install --force
+COPY . .
+EXPOSE 3000
+ENV REACT_APP_BASE_URL=http://localhost:5000
+CMD ["npm", "start" ]

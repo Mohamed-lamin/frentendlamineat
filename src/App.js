@@ -1,5 +1,5 @@
 import "./App.css"
-import Navbar from "./components/Nabar/Navbar"
+import Navbar from "./components/Navbar/Navbar"
 import Plats from "./components/Plats/Plats"
 import {
   BrowserRouter,
@@ -9,8 +9,9 @@ import {
   useHistory,
 } from "react-router-dom"
 import Auth from "./components/Auth/Auth"
-import Restaurantinfo from "./components/restaurantinfo/Restaurantinfo"
-import { useEffect, useState } from "react"
+import Restaurantinfo from "./components/Restaurantinfo/Restaurantinfo"
+import { useState } from "react"
+import Commandes from "./components/commandes/Commandes"
 function App() {
   const history = useHistory()
   const [login, setLogin] = useState(localStorage.getItem("profile"))
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" exact component={Auth} />
             <Route path="/plats" exact component={Plats} />
             <Route path="/restaurantinfo" exact component={Restaurantinfo} />
+            <Route path="/commandes" exact component={Commandes} />
           </Switch>
         </div>
       </div>

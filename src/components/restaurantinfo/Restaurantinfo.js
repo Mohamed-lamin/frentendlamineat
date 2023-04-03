@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import FileBase from "react-file-base64"
-import { createRestaurant } from "../../actions/Restaurant"
+import { createRestaurant, updateRestaurant } from "../../actions/Restaurant"
 import { useHistory } from "react-router-dom"
 
 function Restaurantinfo() {
@@ -22,25 +22,28 @@ function Restaurantinfo() {
   const history = useHistory()
   const [restaurant, setRestaurant] = useState(initial)
   const [id, setId] = useState("")
+  const [restV, setRestV] = useState("")
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"))
-    setId(user.result._id)
-    // if (user.result.restaurantUser) {
-    //   setRestaurant({
-    //     restaurant_name: user.result.restaurantUser.restaurant_name,
-    //     description: user.result.restaurantUser.description,
-    //     image: user.result.restaurantUser.image,
-    //     numero: user.result.restaurantUser.numero,
-    //     ville: user.result.restaurantUser.ville,
-    //     codepostal: user.result.restaurantUser.codepostal,
-    //     category_name: user.result.restaurantUser.category,
-    //   })
-    // }
+    const restaurantVerification = JSON.parse(
+      localStorage.getItem("restaurant")
+    )
+    setId(user?.result?._id)
+    setRestV(restaurantVerification)
+    let verifRestaurant = JSON.parse(localStorage.getItem("restaurant"))
+    if (verifRestaurant?.result) {
+      setRestaurant(verifRestaurant?.result?.userRestaurant)
+    }
   }, [])
+  console.log(restaurant)
   const handleSumbit = e => {
     e.preventDefault()
-    dispatch(createRestaurant(restaurant, id, history))
+    createRestaurant(dispatch, restaurant, id, history)
+  }
+  const UpdateRestaurant = e => {
+    e.preventDefault()
+    updateRestaurant(dispatch, restaurant, id, history)
   }
 
   return (
@@ -55,7 +58,7 @@ function Restaurantinfo() {
             className="bg-gray-300 my-1 md:mb-3 w-60 rounded py-2 px-2"
             placeholder="Nom du restaurant"
             name="restaurant_name"
-            value={restaurant.restaurant_name}
+            value={restaurant?.restaurant_name}
             onChange={e =>
               setRestaurant({ ...restaurant, restaurant_name: e.target.value })
             }
@@ -143,7 +146,7 @@ function Restaurantinfo() {
             name="description"
             rows={3}
             placeholder="Description"
-            value={restaurant.description}
+            value={restaurant?.description}
             onChange={e =>
               setRestaurant({ ...restaurant, description: e.target.value })
             }
@@ -161,13 +164,13 @@ function Restaurantinfo() {
             setRestaurant({ ...restaurant, category_name: e.target.value })
           }
         >
-          <option value="traditional">Traditionel</option>
-          <option value="local">Local</option>
-          <option value="americain">Americain</option>
-          <option value="italien">Italien</option>
-          <option value="japanais">Japanais</option>
-          <option value="lebanaise">Lebanaise</option>
-          <option value="chinois">Chinois</option>
+          <option value="Traditional">Traditionel</option>
+          <option value="Local">Local</option>
+          <option value="Americain">Americain</option>
+          <option value="Italien">Italien</option>
+          <option value="Japanais">Japanais</option>
+          <option value="Lebanaise">Lebanaise</option>
+          <option value="Chinois">Chinois</option>
         </select>
 
         <div className="text-black">
@@ -181,12 +184,20 @@ function Restaurantinfo() {
           />
         </div>
         <button
-          className="my-2 md:my-5 py-1 border-solid border-2 bg-black w-1/5  text-white font-bold rounded-md "
+          className=" md:mt-5 py-1 border-solid border-2 bg-black w-1/5  text-white font-bold rounded-md "
           type="submit"
-          onClick={handleSumbit}
+          onClick={!restV ? handleSumbit : UpdateRestaurant}
         >
-          Enregistrer
+          {restV ? "Mettre à jour" : "Enregistrer"}
         </button>
+        {restV && (
+          <button
+            className=" md:my-1 py-1 border-solid border-2 bg-black w-1/5  text-white font-bold rounded-md "
+            onClick={() => history.push("/plats")}
+          >
+            Annuler
+          </button>
+        )}
       </form>
     </div>
   )

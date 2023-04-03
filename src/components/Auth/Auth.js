@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { GoogleLogin } from "react-google-login"
-import { useDispatch } from "react-redux"
+// import { GoogleLogin } from "react-google-login"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { signin, signup } from "../../actions/auth"
+import { theRestaurant, theUser } from "../../features/authSlice"
+import * as api from "../../api/index"
 const initialState = {
   firstname: "",
   lastname: "",
@@ -12,6 +14,7 @@ const initialState = {
 }
 
 function Auth() {
+  const authenticated = useSelector(state => state.authenticatedUser.auth)
   const [form, setForm] = useState(initialState)
   const [isSignup, setIsSignup] = useState(false)
   const dispatch = useDispatch()
@@ -20,7 +23,30 @@ function Auth() {
   //   e.preventDefault()
   //   setIsSignup(!isSignup)
   // }
-
+  // Functions
+  const signin = async form => {
+    try {
+      const { data } = await api.signIn(form)
+      console.log(data)
+      dispatch(theUser(data))
+      dispatch(theRestaurant(data))
+      history.push("/plats")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const signup = async form => {
+    console.log(form)
+    try {
+      const { data } = await api.signUp(form)
+      console.log(data)
+      dispatch(theUser(data))
+      history.push("/restaurantinfo")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(form)
   // handle Change in the form
   const handleChange = e =>
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -30,11 +56,12 @@ function Auth() {
 
     dispatch(signin(form, history))
   }
+
   const handleSubmitSignUp = e => {
     e.preventDefault()
-
-    dispatch(signup(form, history))
+    signup(form)
   }
+  console.log(authenticated)
   // handle google responses
   // const googleSuccess = async res => {
   //   console.log(res)
@@ -64,13 +91,13 @@ function Auth() {
           <div className="flex w-60 md:w-80 justify-center mt-5 mb-2 space-x-3">
             <input
               className="bg-gray-300 py-2 px-2 w-1/2 rounded "
-              placeholder="Votre Nom"
+              placeholder="Nom"
               name="firstname"
               onChange={handleChange}
             />
             <input
               className="bg-gray-300 py-2 px-2 w-1/2 rounded "
-              placeholder="Votre Prénom"
+              placeholder="Prénom"
               name="lastname"
               onChange={handleChange}
             />
@@ -78,7 +105,7 @@ function Auth() {
 
           <input
             className="bg-gray-300 mb-2  rounded py-2 px-2 w-60 md:w-80 "
-            placeholder="Votre addresse email"
+            placeholder="Email"
             name="email"
             type="email"
             onChange={handleChange}
@@ -94,7 +121,7 @@ function Auth() {
 
           <input
             className="bg-gray-300   rounded py-2 px-2 w-60 md:w-80"
-            placeholder="Répeter mot de passe"
+            placeholder="Confirmer le mot de passe"
             name="confirmPassword"
             type="password"
             onChange={handleChange}
@@ -134,7 +161,7 @@ function Auth() {
           <div className="flex flex-col mt-5 ">
             <input
               className="bg-gray-300 mb-2  rounded py-2 px-2 w-60 md:w-80 "
-              placeholder="Votre addresse email"
+              placeholder="Email"
               name="email"
               type="email"
               onChange={handleChange}
@@ -170,7 +197,7 @@ function Auth() {
             Enregistrer
           </button>
           <button className=" mt-3 mb-5 w-60  md:w-80 py-0.5 border-solid border-2 bg-black  text-white font-bold rounded-md ">
-            S'inscrire avec Google
+            S'authentifier avec google
           </button>
         </form>
       </div>

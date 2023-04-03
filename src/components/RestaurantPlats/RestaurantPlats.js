@@ -8,27 +8,21 @@ function RestaurantPlats({
   setPlatCurrentId,
   restaurantId,
 }) {
-  const Plats = useSelector(state => state.plats)
-  console.log(restaurantId)
-
-  const user = JSON.parse(localStorage.getItem("profile"))
-  if (!user) {
-    return <h1>""</h1>
-  }
-  return !Plats ? (
-    <h1 className="text-white">Téléchargement...</h1>
-  ) : (
-    <div className="flex flex-wrap justify-start space-x-2">
+  const Plats = useSelector(state => state.AllThePlats.plats)
+  console.log(Plats)
+  return (
+    <div className="flex flex-wrap    ">
       {Plats.map((plat, index) => (
         <div
           key={plat._id}
-          className={`w-50 md:w-60 rounded ${
-            platCurrentId
+          className={`mr-8 w-50 md:w-60 rounded ${
+            platCurrentId === plat._id
               ? " border-orange-400 border-solid border-4 "
               : " border-transparent"
           }`}
         >
           <RestaurantPlat
+            id={plat._id}
             plat={plat}
             setCurrentId={setCurrentId}
             setPlatCurrentId={setPlatCurrentId}

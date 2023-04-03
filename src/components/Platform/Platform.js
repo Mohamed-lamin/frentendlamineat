@@ -1,3 +1,4 @@
+import { PaperAirplaneIcon, PlusIcon } from "@heroicons/react/24/solid"
 import React, { useEffect, useState } from "react"
 import FileBase from "react-file-base64"
 import { useDispatch, useSelector } from "react-redux"
@@ -8,32 +9,46 @@ import {
 } from "../../actions/PostsResaurantPlats"
 
 function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
-  console.log(platCurrentId)
   const plat = useSelector(state =>
-    platCurrentId ? state.plats?.find(plat => plat._id === platCurrentId) : null
+    platCurrentId
+      ? state.AllThePlats.plats?.find(plat => plat._id === platCurrentId)
+      : null
   )
   const dispatch = useDispatch()
   const [postData, setPostData] = useState({
     dishname: "",
     price: "",
+    category: [],
     description: "",
     image: "",
   })
   const resetUpdate = () => {
     setPlatCurrentId(0)
   }
-
-  const user = JSON.parse(localStorage.getItem("profile"))
-  const clear = () => {
+  const [showcategory, setShowcategory] = useState(false)
+  // const user = JSON.parse(localStorage.getItem("profile"))
+  const clear = e => {
     setPlatCurrentId(0)
     setPostData({
       dishname: "",
       price: "",
+      category: [],
       description: "",
       image: "",
     })
   }
-  console.log(postData)
+  const clearAnunuler = e => {
+    e.preventDefault()
+    setPlatCurrentId(0)
+    setPostData({
+      dishname: "",
+      price: "",
+      category: [],
+      description: "",
+      image: "",
+    })
+  }
+
   useEffect(() => {
     if (plat) {
       setPostData(plat)
@@ -42,16 +57,17 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
   const handleSumbit = e => {
     e.preventDefault()
     if (platCurrentId === 0) {
-      dispatch(createResaurantPlats(postData, restaurantId))
+      createResaurantPlats(dispatch, restaurantId, postData)
       clear()
     } else {
-      dispatch(updatePlat(restaurantId, postData))
+      updatePlat(dispatch, restaurantId, postData)
       clear()
     }
   }
-  useEffect(() => {
-    dispatch(getRestaurantPlats(restaurantId))
-  }, [dispatch])
+  console.log(postData)
+  // useEffect(() => {
+  //   dispatch(getRestaurantPlats(restaurantId))
+  // }, [dispatch])
   return (
     <div className="container mx-auto ">
       <form className="flex flex-col h-1/2 items-center  mt-2 md:mt-10">
@@ -81,6 +97,47 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
             value={postData.price}
             onChange={e => setPostData({ ...postData, price: e.target.value })}
           />
+        </div>
+        <div className="flex w-60 flex-col items-center">
+          <div className=" flex self-start">
+            <label>Catégories</label>
+            <PlusIcon
+              className=" p-1 h-8 w-8 relative"
+              onClick={() => setShowcategory(true)}
+            />
+          </div>
+          {(showcategory || plat) && (
+            <div className="absolute flex justify-end items-center">
+              <input
+                className="bg-gray-300 my-2 md:mb-2 w-60 rounded py-2 px-2  z-50 relative"
+                placeholder="Séparez les par (,)"
+                name="category"
+                // type="number"
+                value={postData.category}
+                onChange={e =>
+                  setPostData({
+                    ...postData,
+                    category: e.target.value.split(","),
+                  })
+                }
+              />
+              <PaperAirplaneIcon
+                className="h-7 w-7 absolute z-50"
+                onClick={() => setShowcategory(false)}
+              />
+            </div>
+          )}
+          {!showcategory && (
+            <div className=" mb-2 w-full flex flex-wrap">
+              {postData.category.map(it => (
+                <div className="mx-0.5 bg-orange-400 rounded-md p-0.5">
+                  {/* <div> */}
+                  <h1>{it}</h1>
+                  {/* </div> */}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex flex-col">
           <label>Description</label>
@@ -112,14 +169,14 @@ function RestaurantForm({ restaurantId, setPlatCurrentId, platCurrentId }) {
           {`${platCurrentId ? "Mettre à jour" : "Enregistrer"}`}
         </button>
 
-        {/* <button
+        <button
           className={`my-1 py-1 border-solid border-2 bg-black w-5/12 ${
             platCurrentId ? "block" : "hidden"
           } text-white font-bold rounded-md`}
-          onClick={resetUpdate}
+          onClick={clearAnunuler}
         >
           Annuler
-        </button> */}
+        </button>
       </form>
     </div>
   )

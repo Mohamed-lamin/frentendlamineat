@@ -5,37 +5,40 @@ import {
   deletePlat,
   getRestaurantPlats,
 } from "../../actions/PostsResaurantPlats"
-import RestaurantForm from "../RestaurantForm/RestaurantForm"
+import Platform from "../Platform/Platform"
 import RestaurantPlats from "../RestaurantPlats/RestaurantPlats"
 import { useHistory, useLocation } from "react-router-dom"
+import { getAllCommandes } from "../../actions/commandes"
 
 function Plats() {
   const restaurantID = useSelector(state => state.restaurant)
   const history = useHistory()
   const location = useLocation()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
-  const [restaurantId, setResaurantId] = useState()
+  const [restaurant, setResaurant] = useState(
+    JSON.parse(localStorage.getItem("restaurant"))
+  )
   const [currentId, setCurrentId] = useState({ PlatId: "" })
   const [platCurrentId, setPlatCurrentId] = useState(0)
-  console.log(restaurantId)
-
+  const restaurantId = restaurant?.result?.userRestaurant?._id
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getRestaurantPlats(restaurantId))
-  }, [dispatch, restaurantId, currentId])
+    getRestaurantPlats(restaurantId, dispatch)
+
+    getAllCommandes(dispatch, restaurantId)
+  }, [])
   // useEffect(() => {
   //   dispatch(deletePlat(restaurantId, currentId))
   //   console.log(currentId)
   // }, [currentId, dispatch, restaurantId])
-  useEffect(() => {
-    restaurantID
-      ? setResaurantId(restaurantID?.restaurantUser._id)
-      : setResaurantId(user?.result?.restaurantUser?._id)
-  }, [restaurantId, user])
-  useEffect(() => {
-    dispatch(getRestaurantPlats(restaurantId))
-  }, [restaurantId, dispatch])
+  // useEffect(() => {
+  //   setResaurantId()
+  //   console.log(restaurantId)
+  // }, [])
+  // useEffect(() => {
+  //   dispatch(getRestaurantPlats(restaurantId))
+  // }, [restaurantId, dispatch])
   useEffect(() => {
     let isAuth = JSON.parse(localStorage.getItem("profile"))
 
@@ -45,16 +48,14 @@ function Plats() {
   }, [location])
   return (
     <div className="container mx-auto  ">
-      <div className="container  flex flex-col-reverse md:flex-row md:justify-between items-center md:items-stretch space-x-5 ">
+      <div className="container  flex flex-col-reverse md:flex-row md:justify-between items-center md:items-stretch  ">
         <div className="flex md:flex-1  ">
-          <div className="">
-            <RestaurantPlats
-              setCurrentId={setCurrentId}
-              setPlatCurrentId={setPlatCurrentId}
-              restaurantId={restaurantId}
-              platCurrentId={platCurrentId}
-            />
-          </div>
+          <RestaurantPlats
+            setCurrentId={setCurrentId}
+            setPlatCurrentId={setPlatCurrentId}
+            restaurantId={restaurantId}
+            platCurrentId={platCurrentId}
+          />
         </div>
         <div
           className={`bg-white rounded ${
@@ -64,7 +65,7 @@ function Plats() {
           }`}
           style={{ margin: 0 }}
         >
-          <RestaurantForm
+          <Platform
             restaurantId={restaurantId}
             setPlatCurrentId={setPlatCurrentId}
             platCurrentId={platCurrentId}
